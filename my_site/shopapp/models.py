@@ -9,6 +9,15 @@ class Product(models.Model):
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     archived = models.BooleanField(default=False)
 
+    # @property
+    # def description_short(self):
+    #     if len(self.description) < 48:
+    #         return self.description
+    #     return f"{self.description[:48]}..."
+
+
+    def __str__(self) -> str:
+        return f"Product (id={self.pk}, name={self.name!r})"
 
 class Order(models.Model):
     delivery_adress = models.TextField(null=True, blank=True)
@@ -16,3 +25,4 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     products = models.ManyToManyField(Product, related_name="orders")
+
